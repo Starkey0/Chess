@@ -1,0 +1,18 @@
+﻿  core.c
+O:\Projects\Coding\Chess\raylib\src\rlgl.h(1646,5): warning C4090: 'function': different 'const' qualifiers
+O:\Projects\Coding\Chess\raylib\src\external\dirent.h(114,13): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+O:\Projects\Coding\Chess\raylib\src\core.c(191,14): fatal error C1083: Cannot open include file: 'GLFW/glfw3.h': No such file or directory
+  utils.c
+O:\Projects\Coding\Chess\raylib\src\utils.c(146,25): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+O:\Projects\Coding\Chess\raylib\src\utils.c(147,25): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+O:\Projects\Coding\Chess\raylib\src\utils.c(148,24): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+O:\Projects\Coding\Chess\raylib\src\utils.c(149,27): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+O:\Projects\Coding\Chess\raylib\src\utils.c(150,25): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+O:\Projects\Coding\Chess\raylib\src\utils.c(151,25): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+O:\Projects\Coding\Chess\raylib\src\utils.c(155,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+O:\Projects\Coding\Chess\raylib\src\utils.c(156,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+O:\Projects\Coding\Chess\raylib\src\utils.c(175,22): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+O:\Projects\Coding\Chess\raylib\src\utils.c(212,22): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+O:\Projects\Coding\Chess\raylib\src\utils.c(237,26): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+O:\Projects\Coding\Chess\raylib\src\utils.c(278,22): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  Generating Code...

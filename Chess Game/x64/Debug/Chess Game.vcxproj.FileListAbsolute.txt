@@ -1,0 +1,2 @@
+O:\Projects\Coding\Chess\Chess Game\x64\Debug\Chess Game.exe
+O:\Projects\Coding\Chess\Chess Game\x64\Debug\Chess Game.pdb

@@ -1,0 +1,4 @@
+﻿  Chess Game.cpp
+O:\Projects\Coding\Chess\Chess Game\Chess Game.cpp(66,35): warning C4013: 'calloc' undefined; assuming extern returning int
+O:\Projects\Coding\Chess\Chess Game\Chess Game.cpp(66,66): warning C4312: 'type cast': conversion from 'int' to 'Color *' of greater size
+  Chess Game.vcxproj -> O:\Projects\Coding\Chess\Chess Game\x64\Debug\Chess Game.exe
