@@ -23,25 +23,64 @@
 ********************************************************************************************/
 
 
-#include "raylib.h"
+#include "board.h"
 
-#define SCREENWIDTH     800
-#define SCREENHEIGHT    800
+#define SCREENWIDTH     900
+#define SCREENHEIGHT    900
 #define GRIDWIDTH       100
 #define GRIDHEIGHT      100
 
-#define WKING           0x2654
-#define WQUEEN          0x2655
-#define WROOK           0x2656
-#define WBISHOP         0x2657
-#define WKNIGHT         0x2658
-#define WPAWN           0x2659
-#define BKING           0x265A
-#define BQUEEN          0x265B
-#define BROOK           0x265C
-#define BBISHOP         0x265D
-#define BKNIGHT         0x265E
-#define BPAWN           0x265F
+
+void DrawBoard(Piece pieces[32], Font *fontEmoji, Texture2D *checked)
+{
+    Vector2 pos_init = { SCREENWIDTH / 2 - checked->width / 2,
+                         SCREENHEIGHT / 2 - checked->height / 2};
+    Vector2 pos_x = { GRIDWIDTH,0 };
+    Vector2 pos_y = { 0, GRIDHEIGHT };
+    Vector2 pos;
+
+    int mouse_x, mouse_y;
+    char c_mouse_pos[12];
+
+    //Board
+    DrawTexture(*checked, SCREENWIDTH / 2 - checked->width / 2,
+                          SCREENHEIGHT / 2 - checked->height / 2, 
+                          Fade(WHITE, 0.5f));
+
+    //Left text
+    for (int i = 1; i <= 8; ++i)
+    {
+        char n[2];
+        n[0] = (char)('0' + i);
+        n[1] = '\0';
+        DrawText(n, pos_init.x - GRIDWIDTH / 3 + 6, i * GRIDHEIGHT + 4, 20.0, BLACK);
+    }
+
+    //Bottom text
+    for (int i = 1; i <= 8; ++i)
+    {
+        char n[2];
+        n[0] = (char)('@' + i);
+        n[1] = '\0';
+        DrawText(n, i * GRIDWIDTH + 6, pos_init.y + GRIDHEIGHT * 8 + 4, 20.0, BLACK);
+    }
+
+    //Board Pieces
+    for (int i = 0; i < 32; ++i)
+    {
+        pos = (Vector2){ pos_init.x + pieces[i].pos.x * pos_x.x + pos_x.x / 2 / 3 ,
+                         pos_init.y + pieces[i].pos.y * pos_y.y + pos_y.y / 2 / 3 };
+        DrawTextCodepoint(*fontEmoji, *pieces[i].piece, pos, 1.0, pieces[i].team);
+    }
+
+    //Mouse position
+    mouse_x = GetMouseX();
+    mouse_y = GetMouseY();
+
+    sprintf_s(c_mouse_pos,12, "%d , %d", mouse_x, mouse_y);
+
+    DrawText(c_mouse_pos, 0,0, 20.0, BLACK);
+}
 
 int main(void)
 {
@@ -50,17 +89,19 @@ int main(void)
     const int screenWidth = SCREENWIDTH;
     const int screenHeight = SCREENHEIGHT;
 
-    int font_chars[12] = { 0x2654, 0x2655 , 0x2656, 0x2657 , 0x2658 , 0x2659 , 0x265A 
-        , 0x265B , 0x265C , 0x265D , 0x265E , 0x265F };
+    // Generate a checked texture by code
+    int width = 800;
+    int height = 800;
+
+    Piece pieces[32] = { 0 };
+
+    int font_code[12];
+
+    InitBoard(pieces, font_code);
 
     InitWindow(SCREENWIDTH, SCREENHEIGHT, "Chess");
 
-    //Font fontEmoji = LoadFont("resources/Symbola.ttf");
-    Font fontEmoji = LoadFontEx("resources/Symbola.ttf", GRIDWIDTH, font_chars, 12);
-
-    // Generate a checked texture by code
-    int width = screenWidth;
-    int height = screenHeight;
+    Font fontEmoji = LoadFontEx("resources/Symbola.ttf", GRIDWIDTH*2/3, font_code, 12);
 
     // Dynamic memory allocation to store pixels data (Color type)
     Color* pixels = (Color*)calloc(width * height, sizeof(Color));
@@ -79,18 +120,16 @@ int main(void)
         .data = pixels,             // We can assign pixels directly to data
         .width = width,
         .height = height,
-        .format = UNCOMPRESSED_R8G8B8A8,
-        .mipmaps = 1
+        .mipmaps = 1,
+        .format = UNCOMPRESSED_R8G8B8A8
     };
 
     Texture2D checked = LoadTextureFromImage(checkedIm);
     //UnloadImage(checkedIm);         // Unload CPU (RAM) image data (pixels)
+    //SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
 
-    Vector2 pos = { 2.0f, 2.0f };
-    
-
-    SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
+
 
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
@@ -104,12 +143,10 @@ int main(void)
         //----------------------------------------------------------------------------------
         BeginDrawing();
 
-            //const char* txt = "\xA60";
-
             ClearBackground(RAYWHITE);
-            DrawTexture(checked, screenWidth / 2 - checked.width / 2, screenHeight / 2 - checked.height / 2, Fade(WHITE, 0.5f));
-            //DrawTextEx(fontEmoji, txt, pos, fontEmoji.baseSize, 1.0, Fade(LIGHTGRAY, 0.4f));
-            DrawTextCodepoint(fontEmoji, 0x2654, pos, 1.0, WHITE);
+            DrawBoard(pieces, &fontEmoji, &checked);
+
+            
 
         EndDrawing();
         //----------------------------------------------------------------------------------
