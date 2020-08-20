@@ -29,6 +29,5 @@ typedef struct Piece Piece;
 //Board is a 8 by 8 grid (0,0) at top left
 
 
-void InitBoard(Piece piece[32], int font_code[12]);
+void InitBoard(Piece* board[8][8], Piece piece[32], int font_code[12]);
 
-Vector2 GetMouseGridPosition();

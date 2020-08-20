@@ -22,16 +22,37 @@
 *
 ********************************************************************************************/
 
-
+#include <assert.h>
 #include "board.h"
 
 #define SCREENWIDTH     900
 #define SCREENHEIGHT    900
 #define GRIDWIDTH       100
 #define GRIDHEIGHT      100
+#define CHECKEDWIDTH    800
+#define CHECKEDHEIGHT   800
 
 
-void DrawBoard(Piece pieces[32], Font *fontEmoji, Texture2D *checked)
+int GetMouseGridPositionX()
+{    
+    int mouse_x = GetMouseX();
+    if (mouse_x > SCREENWIDTH / 2 - CHECKEDWIDTH / 2 &&
+        mouse_x < SCREENWIDTH / 2 - CHECKEDWIDTH / 2 + CHECKEDWIDTH)
+        return (int)(mouse_x - (SCREENWIDTH / 2 - CHECKEDWIDTH / 2)) / GRIDWIDTH;
+    return -1;
+}
+
+int GetMouseGridPositionY()
+{
+    int mouse_y = GetMouseY();
+
+    if (mouse_y > SCREENHEIGHT / 2 - CHECKEDHEIGHT / 2 &&
+        mouse_y < SCREENHEIGHT / 2 - CHECKEDHEIGHT / 2 + CHECKEDHEIGHT)
+        return (int)(mouse_y - (SCREENHEIGHT / 2 - CHECKEDHEIGHT / 2)) / GRIDHEIGHT;
+    return -1;
+}
+
+void DrawBoard(Piece pieces[32], Font *fontEmoji, Texture2D *checked, Piece *selected)
 {
     Vector2 pos_init = { SCREENWIDTH / 2 - checked->width / 2,
                          SCREENHEIGHT / 2 - checked->height / 2};
@@ -39,8 +60,8 @@ void DrawBoard(Piece pieces[32], Font *fontEmoji, Texture2D *checked)
     Vector2 pos_y = { 0, GRIDHEIGHT };
     Vector2 pos;
 
-    int mouse_x, mouse_y;
     char c_mouse_pos[12];
+    char c_select_pos[12];
 
     //Board
     DrawTexture(*checked, SCREENWIDTH / 2 - checked->width / 2,
@@ -73,13 +94,61 @@ void DrawBoard(Piece pieces[32], Font *fontEmoji, Texture2D *checked)
         DrawTextCodepoint(*fontEmoji, *pieces[i].piece, pos, 1.0, pieces[i].team);
     }
 
-    //Mouse position
-    mouse_x = GetMouseX();
-    mouse_y = GetMouseY();
+    sprintf_s(c_mouse_pos,12, "%d , %d", GetMouseGridPositionX(), GetMouseGridPositionY());
+    
+    if (selected != NULL)
+        sprintf_s(c_select_pos,12, "%d , %d", (int) selected->pos.x, 
+                                                   (int) selected->pos.y
+                                                   );
+    
+    DrawText(c_mouse_pos, 0, 0, 20.0, BLACK);
+    DrawText(c_select_pos, CHECKEDWIDTH, 0, 20.0, BLACK);
+}
 
-    sprintf_s(c_mouse_pos,12, "%d , %d", mouse_x, mouse_y);
+void GetInput(Piece* board[8][8],Piece **selected)
+{
 
-    DrawText(c_mouse_pos, 0,0, 20.0, BLACK);
+    if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+    {
+        int mouse_x = GetMouseGridPositionX();
+        int mouse_y = GetMouseGridPositionY();
+
+        if (*selected == NULL)
+        {
+            if (mouse_x != -1 && mouse_y != -1)
+            {
+                *selected = board[mouse_x][mouse_y];
+            }
+            else
+            {
+                *selected = NULL;
+            }
+            return;
+        }
+
+        if (*selected != NULL)
+        {
+            if (mouse_x != -1 && mouse_y != -1)
+            {
+                if (board[mouse_x][mouse_y] == NULL)
+                {
+                    int x, y;
+                    x = (int) (*selected)->pos.x;
+                    y = (int) (*selected)->pos.y;
+
+                    board[mouse_x][mouse_y] = *selected;
+                    board[mouse_x][mouse_y]->pos.x = mouse_x;
+                    board[mouse_x][mouse_y]->pos.y = mouse_y;
+
+                    board[x][y] = NULL;
+                }
+                    
+            }
+            *selected = NULL;
+            return;
+        }
+        
+    }   
 }
 
 int main(void)
@@ -90,15 +159,15 @@ int main(void)
     const int screenHeight = SCREENHEIGHT;
 
     // Generate a checked texture by code
-    int width = 800;
-    int height = 800;
+    int width = CHECKEDWIDTH;
+    int height = CHECKEDHEIGHT;
 
+    Piece board[8][8] = { 0 };
     Piece pieces[32] = { 0 };
-
     int font_code[12];
+    Piece *selected = NULL;
 
-    InitBoard(pieces, font_code);
-
+    InitBoard(&board, pieces, font_code);
     InitWindow(SCREENWIDTH, SCREENHEIGHT, "Chess");
 
     Font fontEmoji = LoadFontEx("resources/Symbola.ttf", GRIDWIDTH*2/3, font_code, 12);
@@ -144,9 +213,8 @@ int main(void)
         BeginDrawing();
 
             ClearBackground(RAYWHITE);
-            DrawBoard(pieces, &fontEmoji, &checked);
-
-            
+            DrawBoard(pieces, &fontEmoji, &checked, selected);
+            GetInput(&board, &selected);
 
         EndDrawing();
         //----------------------------------------------------------------------------------
