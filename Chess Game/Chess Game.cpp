@@ -25,8 +25,8 @@
 #include <assert.h>
 #include "board.h"
 
-#define SCREENWIDTH     900
-#define SCREENHEIGHT    900
+#define SCREENWIDTH     1000
+#define SCREENHEIGHT    1000
 #define GRIDWIDTH       100
 #define GRIDHEIGHT      100
 #define CHECKEDWIDTH    800
@@ -105,8 +105,10 @@ void DrawBoard(Piece pieces[32], Font *fontEmoji, Texture2D *checked, Piece *sel
     DrawText(c_select_pos, CHECKEDWIDTH, 0, 20.0, BLACK);
 }
 
-void GetInput(Piece* board[8][8],Piece **selected)
+void GetInput(Square board[8][8],Piece **selected, Move* move, MoveNode* move_list)
 {
+    move->new_pos = (Vector2){ 0,0 };
+    move->piece = NULL;
 
     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
     {
@@ -117,7 +119,7 @@ void GetInput(Piece* board[8][8],Piece **selected)
         {
             if (mouse_x != -1 && mouse_y != -1)
             {
-                *selected = board[mouse_x][mouse_y];
+                *selected = board[mouse_x][mouse_y].piece;
             }
             else
             {
@@ -130,17 +132,13 @@ void GetInput(Piece* board[8][8],Piece **selected)
         {
             if (mouse_x != -1 && mouse_y != -1)
             {
-                if (board[mouse_x][mouse_y] == NULL)
+                if (board[mouse_x][mouse_y].piece == NULL)
                 {
-                    int x, y;
-                    x = (int) (*selected)->pos.x;
-                    y = (int) (*selected)->pos.y;
 
-                    board[mouse_x][mouse_y] = *selected;
-                    board[mouse_x][mouse_y]->pos.x = mouse_x;
-                    board[mouse_x][mouse_y]->pos.y = mouse_y;
-
-                    board[x][y] = NULL;
+                    move->new_pos.x = mouse_x;
+                    move->new_pos.y = mouse_y;
+                    move->piece = *selected;
+                    move->init_pos = (*selected)->pos;
                 }
                     
             }
@@ -149,7 +147,12 @@ void GetInput(Piece* board[8][8],Piece **selected)
         }
         
     }   
+
+    if (IsKeyPressed(KEY_Z)) Undo(board,move_list);
+
+
 }
+
 
 int main(void)
 {
@@ -162,12 +165,17 @@ int main(void)
     int width = CHECKEDWIDTH;
     int height = CHECKEDHEIGHT;
 
-    Piece board[8][8] = { 0 };
+    Square board[8][8] = { 0 };
     Piece pieces[32] = { 0 };
     int font_code[12];
     Piece *selected = NULL;
+    Move next_move = {0};
+    MoveNode *move_list, *undo_buffer;
 
-    InitBoard(&board, pieces, font_code);
+    move_list = (MoveNode*)calloc(1, sizeof(MoveNode));
+    undo_buffer = (MoveNode*)calloc(1, sizeof(MoveNode));
+
+    InitBoard(board, pieces, font_code);
     InitWindow(SCREENWIDTH, SCREENHEIGHT, "Chess");
 
     Font fontEmoji = LoadFontEx("resources/Symbola.ttf", GRIDWIDTH*2/3, font_code, 12);
@@ -214,7 +222,12 @@ int main(void)
 
             ClearBackground(RAYWHITE);
             DrawBoard(pieces, &fontEmoji, &checked, selected);
-            GetInput(&board, &selected);
+            GetInput(board, &selected, &next_move, move_list);
+            if (next_move.piece != NULL)
+            {
+                DoMove(board, next_move);
+                AddMove(move_list, &next_move);
+            }
 
         EndDrawing();
         //----------------------------------------------------------------------------------
