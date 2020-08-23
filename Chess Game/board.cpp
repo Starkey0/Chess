@@ -109,7 +109,7 @@ void InitBoard(Square board[8][8], Piece piece[32], int font_code[12])
 	board[7][7].piece = &piece[31];
 }
 
-void AddMove(MoveNode* move_list, Move* move)
+void AddMove(MoveNode* move_list, Move move)
 {
 	MoveNode* new_move = move_list;
 
@@ -120,7 +120,7 @@ void AddMove(MoveNode* move_list, Move* move)
 
 	new_move->next_move = (MoveNode*) calloc(1, sizeof(MoveNode));
 	new_move->next_move->past_move = new_move;
-	new_move->next_move->move= *move;
+	new_move->next_move->move= move;
 	new_move->next_move->next_move = NULL;
 }
 
@@ -142,20 +142,33 @@ Move RemoveMove(MoveNode* move_list)
 	return move;
 }
 
-void Undo(Square board[8][8], MoveNode* move_list)
+void Undo(Square board[8][8], MoveNode* move_list, MoveNode* undo_buffer)
 {
 	Move move = RemoveMove(move_list);
+	
 
 	if (move.piece != NULL)
 	{
+		AddMove(undo_buffer, move);
+
 		Vector2 pos = move.new_pos;
 		move.new_pos = move.init_pos;
 		move.init_pos = pos;
 
 		DoMove(board, move);
 	}
+}
+
+void Redo(Square board[8][8], MoveNode* move_list, MoveNode* undo_buffer)
+{
+	Move move = RemoveMove(undo_buffer);
 	
 
+	if (move.piece != NULL)
+	{
+		AddMove(move_list, move);
+		DoMove(board, move);
+	}
 }
 
 void DoMove(Square board[8][8], Move next_move)
@@ -171,4 +184,9 @@ void DoMove(Square board[8][8], Move next_move)
 	board[mouse_x][mouse_y].piece->pos.y = mouse_y;
 
 	board[x][y].piece = NULL;
+}
+
+void ClearMoveList(MoveNode* move_list)
+{
+	while (RemoveMove(move_list).piece != NULL);
 }

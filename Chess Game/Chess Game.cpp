@@ -105,7 +105,7 @@ void DrawBoard(Piece pieces[32], Font *fontEmoji, Texture2D *checked, Piece *sel
     DrawText(c_select_pos, CHECKEDWIDTH, 0, 20.0, BLACK);
 }
 
-void GetInput(Square board[8][8],Piece **selected, Move* move, MoveNode* move_list)
+void GetInput(Square board[8][8],Piece **selected, Move* move, MoveNode* move_list, MoveNode* undo_buffer)
 {
     move->new_pos = (Vector2){ 0,0 };
     move->piece = NULL;
@@ -148,7 +148,8 @@ void GetInput(Square board[8][8],Piece **selected, Move* move, MoveNode* move_li
         
     }   
 
-    if (IsKeyPressed(KEY_Z)) Undo(board,move_list);
+    if (IsKeyPressed(KEY_Z)) Undo(board,move_list,undo_buffer);
+    if (IsKeyPressed(KEY_Y)) Redo(board,move_list,undo_buffer);
 
 
 }
@@ -222,11 +223,12 @@ int main(void)
 
             ClearBackground(RAYWHITE);
             DrawBoard(pieces, &fontEmoji, &checked, selected);
-            GetInput(board, &selected, &next_move, move_list);
+            GetInput(board, &selected, &next_move, move_list, undo_buffer);
             if (next_move.piece != NULL)
             {
                 DoMove(board, next_move);
-                AddMove(move_list, &next_move);
+                AddMove(move_list, next_move);
+                ClearMoveList(undo_buffer);
             }
 
         EndDrawing();

@@ -58,9 +58,13 @@ void InitBoard(Square board[8][8], Piece piece[32], int font_code[12]);
 
 void DoMove(Square board[8][8], Move next_move);
 
-void AddMove(MoveNode* move_list, Move* move);
+void AddMove(MoveNode* move_list, Move move);
 
 Move RemoveMove(MoveNode* move_list);
 
-void Undo(Square board[8][8], MoveNode* move_list);
+void Undo(Square board[8][8], MoveNode* move_list, MoveNode* undo_buffer);
+
+void Redo(Square board[8][8], MoveNode* move_list, MoveNode* undo_buffer);
+
+void ClearMoveList(MoveNode* move_list);
 

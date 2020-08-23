@@ -4,10 +4,10 @@ O:\Projects\Coding\Chess\Chess Game\board.cpp(20,1): warning C4244: 'initializin
 O:\Projects\Coding\Chess\Chess Game\board.cpp(121,42): warning C4013: 'calloc' undefined; assuming extern returning int
 O:\Projects\Coding\Chess\Chess Game\board.cpp(121,63): warning C4312: 'type cast': conversion from 'int' to 'MoveNode *' of greater size
 O:\Projects\Coding\Chess\Chess Game\board.cpp(141,6): warning C4013: 'free' undefined; assuming extern returning int
-O:\Projects\Coding\Chess\Chess Game\board.cpp(170,48): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-O:\Projects\Coding\Chess\Chess Game\board.cpp(171,48): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-O:\Projects\Coding\Chess\Chess Game\board.cpp(163,1): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-O:\Projects\Coding\Chess\Chess Game\board.cpp(164,1): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-O:\Projects\Coding\Chess\Chess Game\board.cpp(166,1): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-O:\Projects\Coding\Chess\Chess Game\board.cpp(167,1): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+O:\Projects\Coding\Chess\Chess Game\board.cpp(183,48): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+O:\Projects\Coding\Chess\Chess Game\board.cpp(184,48): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+O:\Projects\Coding\Chess\Chess Game\board.cpp(176,1): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+O:\Projects\Coding\Chess\Chess Game\board.cpp(177,1): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+O:\Projects\Coding\Chess\Chess Game\board.cpp(179,1): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+O:\Projects\Coding\Chess\Chess Game\board.cpp(180,1): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
   Chess Game.vcxproj -> O:\Projects\Coding\Chess\Chess Game\x64\Debug\Chess Game.exe
