@@ -1,13 +1,15 @@
-﻿  board.cpp
-O:\Projects\Coding\Chess\Chess Game\board.cpp(16,1): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-O:\Projects\Coding\Chess\Chess Game\board.cpp(20,1): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-O:\Projects\Coding\Chess\Chess Game\board.cpp(121,42): warning C4013: 'calloc' undefined; assuming extern returning int
-O:\Projects\Coding\Chess\Chess Game\board.cpp(121,63): warning C4312: 'type cast': conversion from 'int' to 'MoveNode *' of greater size
-O:\Projects\Coding\Chess\Chess Game\board.cpp(141,6): warning C4013: 'free' undefined; assuming extern returning int
-O:\Projects\Coding\Chess\Chess Game\board.cpp(183,48): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-O:\Projects\Coding\Chess\Chess Game\board.cpp(184,48): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-O:\Projects\Coding\Chess\Chess Game\board.cpp(176,1): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-O:\Projects\Coding\Chess\Chess Game\board.cpp(177,1): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-O:\Projects\Coding\Chess\Chess Game\board.cpp(179,1): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-O:\Projects\Coding\Chess\Chess Game\board.cpp(180,1): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+﻿  Chess Game.cpp
+O:\Projects\Coding\Chess\Chess Game\Chess Game.cpp(77,51): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+O:\Projects\Coding\Chess\Chess Game\Chess Game.cpp(78,61): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
+O:\Projects\Coding\Chess\Chess Game\Chess Game.cpp(87,71): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+O:\Projects\Coding\Chess\Chess Game\Chess Game.cpp(87,77): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
+O:\Projects\Coding\Chess\Chess Game\Chess Game.cpp(105,37): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
+O:\Projects\Coding\Chess\Chess Game\Chess Game.cpp(106,49): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
+O:\Projects\Coding\Chess\Chess Game\Chess Game.cpp(57,1): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+O:\Projects\Coding\Chess\Chess Game\Chess Game.cpp(139,46): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+O:\Projects\Coding\Chess\Chess Game\Chess Game.cpp(140,46): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+O:\Projects\Coding\Chess\Chess Game\Chess Game.cpp(177,34): warning C4013: 'calloc' undefined; assuming extern returning int
+O:\Projects\Coding\Chess\Chess Game\Chess Game.cpp(177,55): warning C4312: 'type cast': conversion from 'int' to 'MoveNode *' of greater size
+O:\Projects\Coding\Chess\Chess Game\Chess Game.cpp(178,57): warning C4312: 'type cast': conversion from 'int' to 'MoveNode *' of greater size
+O:\Projects\Coding\Chess\Chess Game\Chess Game.cpp(186,66): warning C4312: 'type cast': conversion from 'int' to 'Color *' of greater size
   Chess Game.vcxproj -> O:\Projects\Coding\Chess\Chess Game\x64\Debug\Chess Game.exe

@@ -74,7 +74,8 @@ void DrawBoard(Piece pieces[32], Font *fontEmoji, Texture2D *checked, Piece *sel
         char n[2];
         n[0] = (char)('0' + i);
         n[1] = '\0';
-        DrawText(n, pos_init.x - GRIDWIDTH / 3 + 6, i * GRIDHEIGHT + 4, 20.0, BLACK);
+        DrawText(n, pos_init.x - GRIDWIDTH / 3 + 6,
+            CHECKEDHEIGHT - i * GRIDHEIGHT + GRIDHEIGHT + GRIDHEIGHT/3, 20.0, BLACK);
     }
 
     //Bottom text
